@@ -10,10 +10,8 @@
 | ex. ['middleware' => ['permission:super|admin|standard']]
 */
 
-
 return [
-
-    'admin' => 'Admin',
+    'admin'   => 'Admin',
     'regular' => 'Regular',
 
 ];

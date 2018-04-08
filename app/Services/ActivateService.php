@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services;
 
 use App\Notifications\ActivateUserEmail;
@@ -20,7 +19,8 @@ class ActivateService
      *
      * @param UserService $userService
      */
-    public function __construct(UserService $userService) {
+    public function __construct(UserService $userService)
+    {
         $this->userService = $userService;
     }
 
@@ -34,7 +34,7 @@ class ActivateService
         $token = md5(str_random(40));
 
         auth()->user()->meta->update([
-            'activation_token' => $token
+            'activation_token' => $token,
         ]);
 
         return auth()->user()->notify(new ActivateUserEmail($token));
@@ -44,6 +44,7 @@ class ActivateService
      * Activate the user
      *
      * @return bool
+     * @param mixed $token
      */
     public function activateUser($token)
     {
@@ -51,8 +52,8 @@ class ActivateService
 
         if ($user) {
             return $user->meta->update([
-                'is_active' => true,
-                'activation_token' => null
+                'is_active'        => true,
+                'activation_token' => null,
             ]);
         }
 

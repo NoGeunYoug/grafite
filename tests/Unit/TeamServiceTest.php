@@ -17,16 +17,16 @@ class TeamServiceTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->service = $this->app->make(TeamService::class);
+        $this->service     = $this->app->make(TeamService::class);
         $this->userService = $this->app->make(UserService::class);
 
         $this->originalArray = [
             'user_id' => 1,
-            'name' => 'Awesomeness',
+            'name'    => 'Awesomeness',
         ];
         $this->editedArray = [
             'user_id' => 1,
-            'name' => 'Hackers',
+            'name'    => 'Hackers',
         ];
         $this->searchTerm = 'who';
     }
@@ -61,7 +61,7 @@ class TeamServiceTest extends TestCase
 
     public function testCreate()
     {
-        $user = factory(App\Models\User::class)->create();
+        $user     = factory(App\Models\User::class)->create();
         $response = $this->service->create($user->id, $this->originalArray);
         $this->assertEquals(get_class($response), 'App\Models\Team');
         $this->assertEquals(1, $response->id);
@@ -69,18 +69,18 @@ class TeamServiceTest extends TestCase
 
     public function testInvite()
     {
-        $admin = factory(App\Models\User::class)->create();
-        $team = $this->service->create($admin->id, $this->originalArray);
-        $user = factory(App\Models\User::class)->create();
+        $admin    = factory(App\Models\User::class)->create();
+        $team     = $this->service->create($admin->id, $this->originalArray);
+        $user     = factory(App\Models\User::class)->create();
         $response = $this->service->invite($admin, $team->id, $user->email);
         $this->assertTrue($response);
     }
 
     public function testRemove()
     {
-        $admin = factory(App\Models\User::class)->create();
-        $team = $this->service->create($admin->id, $this->originalArray);
-        $user = factory(App\Models\User::class)->create();
+        $admin    = factory(App\Models\User::class)->create();
+        $team     = $this->service->create($admin->id, $this->originalArray);
+        $user     = factory(App\Models\User::class)->create();
         $response = $this->service->remove($admin, $team->id, $user->id);
         $this->assertTrue($response);
     }
@@ -88,7 +88,7 @@ class TeamServiceTest extends TestCase
     public function testFind()
     {
         $admin = factory(App\Models\User::class)->create();
-        $team = $this->service->create($admin->id, $this->originalArray);
+        $team  = $this->service->create($admin->id, $this->originalArray);
 
         $response = $this->service->find($team->id);
         $this->assertEquals($team->id, $response->id);
@@ -97,7 +97,7 @@ class TeamServiceTest extends TestCase
     public function testUpdate()
     {
         $admin = factory(App\Models\User::class)->create();
-        $team = $this->service->create($admin->id, $this->originalArray);
+        $team  = $this->service->create($admin->id, $this->originalArray);
 
         $response = $this->service->update($team->id, $this->editedArray);
 
@@ -108,7 +108,7 @@ class TeamServiceTest extends TestCase
     public function testDestroy()
     {
         $admin = factory(App\Models\User::class)->create();
-        $team = $this->service->create($admin->id, $this->originalArray);
+        $team  = $this->service->create($admin->id, $this->originalArray);
 
         $response = $this->service->destroy($admin, $team->id);
         $this->assertTrue($response);

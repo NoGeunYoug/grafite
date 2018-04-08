@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
@@ -23,6 +22,7 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->service->all();
+
         return view('admin.users.index')->with('users', $users);
     }
 
@@ -38,6 +38,7 @@ class UserController extends Controller
         }
 
         $users = $this->service->search($request->search);
+
         return view('admin.users.index')->with('users', $users);
     }
 
@@ -71,6 +72,7 @@ class UserController extends Controller
      * Switch to a different User profile
      *
      * @return \Illuminate\Http\Response
+     * @param mixed $id
      */
     public function switchToUser($id)
     {
@@ -104,6 +106,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = $this->service->find($id);
+
         return view('admin.users.edit')->with('user', $user);
     }
 

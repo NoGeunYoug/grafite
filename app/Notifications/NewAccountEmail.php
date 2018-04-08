@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Notifications;
 
 use Illuminate\Notifications\Notification;
@@ -18,6 +17,7 @@ class NewAccountEmail extends Notification
      * Create a notification instance.
      *
      * @param  string  $token
+     * @param mixed $password
      * @return void
      */
     public function __construct($password)
@@ -34,7 +34,7 @@ class NewAccountEmail extends Notification
     public function via($notifiable)
     {
         return [
-            'mail'
+            'mail',
         ];
     }
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
@@ -20,10 +19,12 @@ class UserRegisteredEmail
      * Create a new event instance.
      *
      * @return void
+     * @param mixed $user
+     * @param mixed $password
      */
     public function __construct($user, $password)
     {
-        $this->user = $user;
+        $this->user     = $user;
         $this->password = $password;
     }
 

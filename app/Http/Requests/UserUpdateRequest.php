@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Auth;
@@ -27,7 +26,7 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'email' => 'required',
-            'name' => 'required',
+            'name'  => 'required',
         ];
     }
 }

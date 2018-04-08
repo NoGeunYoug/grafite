@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Notifications;
 
 use Illuminate\Notifications\Notification;
@@ -34,7 +33,7 @@ class ActivateUserEmail extends Notification
     public function via($notifiable)
     {
         return [
-            'mail'
+            'mail',
         ];
     }
 

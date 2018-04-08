@@ -19,21 +19,21 @@ class TeamIntegrationTest extends TestCase
     {
         parent::setUp();
         $this->user = factory(App\Models\User::class)->create([
-            'id' => rand(1000, 9999)
+            'id' => rand(1000, 9999),
         ]);
         $this->role = factory(App\Models\Role::class)->create([
-            'name' => 'admin'
+            'name' => 'admin',
         ]);
 
         $this->team = factory(App\Models\Team::class)->make([
-            'id' => 1,
+            'id'      => 1,
             'user_id' => $this->user->id,
-            'name' => 'Awesomeness'
+            'name'    => 'Awesomeness',
         ]);
         $this->teamEdited = factory(App\Models\Team::class)->make([
-            'id' => 1,
+            'id'      => 1,
             'user_id' => $this->user->id,
-            'name' => 'Hackers'
+            'name'    => 'Hackers',
         ]);
 
         $this->user->roles()->attach($this->role);
@@ -56,7 +56,7 @@ class TeamIntegrationTest extends TestCase
 
     public function testStore()
     {
-        $admin = factory(App\Models\User::class)->create([ 'id' => rand(1000, 9999) ]);
+        $admin    = factory(App\Models\User::class)->create([ 'id' => rand(1000, 9999) ]);
         $response = $this->actingAs($admin)->call('POST', 'teams', $this->team->toArray());
 
         $this->assertEquals(302, $response->getStatusCode());
@@ -90,9 +90,9 @@ class TeamIntegrationTest extends TestCase
     public function testDelete()
     {
         $admin = factory(App\Models\User::class)->create([ 'id' => rand(1000, 9999) ]);
-        $team = factory(App\Models\Team::class)->create([
+        $team  = factory(App\Models\Team::class)->create([
             'user_id' => $admin->id,
-            'name' => 'Awesomeness'
+            'name'    => 'Awesomeness',
         ]);
         $admin->roles()->attach($this->role);
         $admin->teams()->attach($team);

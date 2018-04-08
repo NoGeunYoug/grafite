@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Services\UserService;
@@ -36,6 +35,7 @@ class ActivateController extends Controller
     public function sendToken()
     {
         $this->service->sendActivationToken();
+
         return view('auth.activate.token');
     }
 
@@ -43,6 +43,7 @@ class ActivateController extends Controller
      * Activate a user account
      *
      * @return User
+     * @param mixed $token
      */
     public function activate($token)
     {

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use App\Models\User;
@@ -37,5 +36,4 @@ class UserMeta extends Model
     {
         return User::where('id', $this->user_id)->first();
     }
-
 }

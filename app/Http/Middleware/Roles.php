@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use Gate;
@@ -13,6 +12,7 @@ class Roles
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
+     * @param mixed $roleCollection
      * @return mixed
      */
     public function handle($request, Closure $next, $roleCollection)

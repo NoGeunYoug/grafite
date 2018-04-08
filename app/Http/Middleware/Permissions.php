@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use Gate;
@@ -31,6 +30,7 @@ class Permissions
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
+     * @param mixed $requestPermissionCollection
      * @return mixed
      */
     public function handle($request, Closure $next, $requestPermissionCollection)

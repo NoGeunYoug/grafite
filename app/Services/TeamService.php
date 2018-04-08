@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services;
 
 use DB;
@@ -27,13 +26,14 @@ class TeamService
         Team $model,
         UserService $userService
     ) {
-        $this->model = $model;
+        $this->model       = $model;
         $this->userService = $userService;
     }
 
     /**
      * All teams
      * @return \Illuminate\Support\Collection|null|static|Team
+     * @param mixed $userId
      */
     public function all($userId)
     {
@@ -43,6 +43,7 @@ class TeamService
     /**
      * All teams paginated
      * @return \Illuminate\Support\Collection|null|static|Team
+     * @param mixed $userId
      */
     public function paginated($userId)
     {
@@ -64,7 +65,7 @@ class TeamService
 
         foreach ($columns as $attribute) {
             $query->orWhere($attribute, 'LIKE', '%'.$input.'%')->where('user_id', $userId);
-        };
+        }
 
         return $query->paginate(env('PAGINATE', 25));
     }
@@ -82,12 +83,13 @@ class TeamService
                 $input['user_id'] = $userId;
                 $team = $this->model->create($input);
                 $this->userService->joinTeam($team->id, $userId);
+
                 return $team;
             });
 
             return $team;
         } catch (Exception $e) {
-            throw new Exception("Failed to create team", 1);
+            throw new Exception('Failed to create team', 1);
         }
     }
 
@@ -138,6 +140,7 @@ class TeamService
             foreach ($team->members as $member) {
                 $this->userService->leaveTeam($id, $member->id);
             }
+
             return $this->model->find($id)->delete();
         }
 
@@ -161,8 +164,8 @@ class TeamService
                     $password = Str::random(10);
 
                     $user = User::create([
-                        'name' => $email,
-                        'email' => $email,
+                        'name'     => $email,
+                        'email'    => $email,
                         'password' => bcrypt($password),
                     ]);
 
@@ -180,7 +183,7 @@ class TeamService
 
             return false;
         } catch (Exception $e) {
-            throw new Exception("Failed to invite member", 1);
+            throw new Exception('Failed to invite member', 1);
         }
     }
 
@@ -199,13 +202,14 @@ class TeamService
 
                 if ($admin->isTeamAdmin($id)) {
                     $this->userService->leaveTeam($id, $user->id);
+
                     return true;
                 }
             }
 
             return false;
         } catch (Exception $e) {
-            throw new Exception("Failed to remove member", 1);
+            throw new Exception('Failed to remove member', 1);
         }
     }
 }

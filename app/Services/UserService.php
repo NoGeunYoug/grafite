@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services;
 
 use DB;
@@ -48,10 +47,10 @@ class UserService
         Team $team,
         Role $role
     ) {
-        $this->model = $model;
+        $this->model    = $model;
         $this->userMeta = $userMeta;
-        $this->team = $team;
-        $this->role = $role;
+        $this->team     = $team;
+        $this->role     = $role;
     }
 
     /**
@@ -88,7 +87,7 @@ class UserService
 
         foreach ($columns as $attribute) {
             $query->orWhere($attribute, 'LIKE', '%'.$input.'%');
-        };
+        }
 
         return $query->paginate(env('PAGINATE', 25));
     }
@@ -112,7 +111,7 @@ class UserService
     public function findByRoleID($id)
     {
         $usersWithRepo = [];
-        $users = $this->model->all();
+        $users         = $this->model->all();
 
         foreach ($users as $user) {
             if ($user->roles->first()->id == $id) {
@@ -154,7 +153,7 @@ class UserService
         try {
             DB::transaction(function () use ($user, $password, $role, $sendEmail) {
                 $this->userMeta->firstOrCreate([
-                    'user_id' => $user->id
+                    'user_id' => $user->id,
                 ]);
 
                 $this->assignRole($role, $user->id);
@@ -162,14 +161,13 @@ class UserService
                 if ($sendEmail) {
                     event(new UserRegisteredEmail($user, $password));
                 }
-
             });
 
             $this->setAndSendUserActivationToken($user);
 
             return $user;
         } catch (Exception $e) {
-            throw new Exception("We were unable to generate your profile, please try again later.", 1);
+            throw new Exception('We were unable to generate your profile, please try again later.', 1);
         }
     }
 
@@ -178,12 +176,13 @@ class UserService
      *
      * @param  int $userId User Id
      * @param  array $inputs UserMeta info
+     * @param mixed $payload
      * @return User
      */
     public function update($userId, $payload)
     {
         if (isset($payload['meta']) && ! isset($payload['meta']['terms_and_cond'])) {
-            throw new Exception("You must agree to the terms and conditions.", 1);
+            throw new Exception('You must agree to the terms and conditions.', 1);
         }
 
         try {
@@ -214,7 +213,7 @@ class UserService
                 return $user;
             });
         } catch (Exception $e) {
-            throw new Exception("We were unable to update your profile", 1);
+            throw new Exception('We were unable to update your profile', 1);
         }
     }
 
@@ -229,9 +228,9 @@ class UserService
 
         return DB::transaction(function () use ($password, $info) {
             $user = $this->model->create([
-                'email' => $info['email'],
-                'name' => $info['name'],
-                'password' => bcrypt($password)
+                'email'    => $info['email'],
+                'name'     => $info['name'],
+                'password' => bcrypt($password),
             ]);
 
             return $this->create($user, $password, $info['roles'], true);
@@ -254,10 +253,10 @@ class UserService
                 $userMetaResult = $this->userMeta->where('user_id', $id)->delete();
                 $userResult = $this->model->find($id)->delete();
 
-                return ($userMetaResult && $userResult);
+                return $userMetaResult && $userResult;
             });
         } catch (Exception $e) {
-            throw new Exception("We were unable to delete this profile", 1);
+            throw new Exception('We were unable to delete this profile', 1);
         }
     }
 
@@ -273,9 +272,10 @@ class UserService
             $user = $this->model->find($id);
             Session::put('original_user', Auth::id());
             Auth::login($user);
+
             return true;
         } catch (Exception $e) {
-            throw new Exception("Error logging in as user", 1);
+            throw new Exception('Error logging in as user', 1);
         }
     }
 
@@ -289,11 +289,12 @@ class UserService
     {
         try {
             $original = Session::pull('original_user');
-            $user = $this->model->find($original);
+            $user     = $this->model->find($original);
             Auth::login($user);
+
             return true;
         } catch (Exception $e) {
-            throw new Exception("Error returning to your user", 1);
+            throw new Exception('Error returning to your user', 1);
         }
     }
 
@@ -301,13 +302,14 @@ class UserService
      * Set and send the user activation token via email
      *
      * @param void
+     * @param mixed $user
      */
     public function setAndSendUserActivationToken($user)
     {
         $token = md5(str_random(40));
 
         $user->meta()->update([
-            'activation_token' => $token
+            'activation_token' => $token,
         ]);
 
         $user->notify(new ActivateUserEmail($token));

@@ -16,23 +16,23 @@ class RoleServiceTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->service = $this->app->make(RoleService::class);
+        $this->service       = $this->app->make(RoleService::class);
         $this->originalArray = [
-            'id' => 1,
-            'name' => 'coders',
-            'label' => 'Coders',
+            'id'          => 1,
+            'name'        => 'coders',
+            'label'       => 'Coders',
             'permissions' => ['super' => 'on'],
         ];
         $this->modifiedArray = [
-            'id' => 1,
-            'name' => 'hackers',
-            'label' => 'Hackers',
+            'id'          => 1,
+            'name'        => 'hackers',
+            'label'       => 'Hackers',
             'permissions' => [],
         ];
         $this->editedArray = [
-            'id' => 1,
-            'name' => 'hackers',
-            'label' => 'Hackers',
+            'id'          => 1,
+            'name'        => 'hackers',
+            'label'       => 'Hackers',
             'permissions' => '',
         ];
         $this->searchTerm = 'who';
@@ -69,7 +69,7 @@ class RoleServiceTest extends TestCase
 
     public function testUpdate()
     {
-        $role = $this->service->create($this->originalArray);
+        $role     = $this->service->create($this->originalArray);
         $response = $this->service->update($role->id, $this->modifiedArray);
 
         $this->assertEquals($role->id, $response->id);
@@ -78,7 +78,7 @@ class RoleServiceTest extends TestCase
 
     public function testDestroy()
     {
-        $role = $this->service->create($this->originalArray);
+        $role     = $this->service->create($this->originalArray);
         $response = $this->service->destroy($role->id);
         $this->assertTrue($response);
     }

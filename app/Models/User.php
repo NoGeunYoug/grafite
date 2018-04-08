@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use App\Models\Role;
@@ -63,6 +62,7 @@ class User extends Authenticatable
     public function hasRole($role)
     {
         $roles = array_column($this->roles->toArray(), 'name');
+
         return array_search($role, $roles) > -1;
     }
 
@@ -97,10 +97,12 @@ class User extends Authenticatable
      * Team member
      *
      * @return boolean
+     * @param mixed $id
      */
     public function isTeamMember($id)
     {
         $teams = array_column($this->teams->toArray(), 'id');
+
         return array_search($id, $teams) > -1;
     }
 
@@ -108,6 +110,7 @@ class User extends Authenticatable
      * Team admin
      *
      * @return boolean
+     * @param mixed $id
      */
     public function isTeamAdmin($id)
     {

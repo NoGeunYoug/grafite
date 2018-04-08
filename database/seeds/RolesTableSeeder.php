@@ -14,11 +14,11 @@ class RolesTableSeeder extends Seeder
     {
         if (! Role::where('name', 'member')->first()) {
             Role::create([
-                'name' => 'member',
+                'name'  => 'member',
                 'label' => 'Member',
             ]);
             Role::create([
-                'name' => 'admin',
+                'name'  => 'admin',
                 'label' => 'Admin',
             ]);
         }

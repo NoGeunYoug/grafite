@@ -10,7 +10,6 @@
 */
 
 return [
-
     'template_source'            => app()->basePath().'/resources/crudmaker',
 
     /*

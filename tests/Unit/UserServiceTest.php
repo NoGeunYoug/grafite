@@ -34,8 +34,8 @@ class UserServiceTest extends TestCase
 
     public function testCreateUser()
     {
-        $role = factory(App\Models\Role::class)->create();
-        $user = factory(App\Models\User::class)->create();
+        $role     = factory(App\Models\Role::class)->create();
+        $user     = factory(App\Models\User::class)->create();
         $response = $this->service->create($user, 'password');
 
         $this->assertTrue(is_object($response));
@@ -49,11 +49,11 @@ class UserServiceTest extends TestCase
 
         $response = $this->service->update($user->id, [
             'email' => $user->email,
-            'name' => 'jim',
-            'role' => 'member',
-            'meta' => [
-                'phone' => '666',
-                'marketing' => 1,
+            'name'  => 'jim',
+            'role'  => 'member',
+            'meta'  => [
+                'phone'          => '666',
+                'marketing'      => 1,
                 'terms_and_cond' => 1,
             ],
         ]);

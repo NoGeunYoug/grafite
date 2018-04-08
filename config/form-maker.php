@@ -7,7 +7,6 @@
 */
 
 return [
-
     'form' => [
         'group-class' => 'form-group',
         'error-class' => 'has-error',
@@ -22,9 +21,9 @@ return [
          *  class.
         */
 
-        'orientation' => 'vertical',
-        'label-column' => 'col-md-2',
-        'input-column' => 'col-md-10',
+        'orientation'     => 'vertical',
+        'label-column'    => 'col-md-2',
+        'input-column'    => 'col-md-10',
         'checkbox-column' => 'col-md-offset-2 col-md-10',
     ],
 
@@ -48,5 +47,5 @@ return [
         'checkbox-inline'   => null,
         'radio'             => null,
         'radio-inline'      => null,
-    ]
+    ],
 ];

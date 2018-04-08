@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\User;
 
 use Hash;
@@ -51,6 +50,7 @@ class PasswordController extends Controller
 
         if (Hash::check($request->old_password, Auth::user()->password)) {
             $this->resetPassword(Auth::user(), $password);
+
             return redirect('user/settings')
                 ->with('message', 'Password updated successfully');
         }

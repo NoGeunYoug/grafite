@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Auth;
@@ -17,7 +16,7 @@ class TeamUpdateRequest extends FormRequest
     public function authorize()
     {
         $teamOwnerId = (int) Auth::user()->teams->find($this->segment(2))->user_id;
-        $userId = (int) Auth::id();
+        $userId      = (int) Auth::id();
 
         if ($teamOwnerId === $userId) {
             return true;
@@ -34,7 +33,7 @@ class TeamUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required',
         ];
     }
 }

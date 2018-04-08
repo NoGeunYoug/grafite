@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Auth;
@@ -26,6 +25,7 @@ class TeamController extends Controller
     public function index(Request $request)
     {
         $teams = $this->service->paginated($request->user()->id);
+
         return view('team.index')->with('teams', $teams);
     }
 
@@ -37,6 +37,7 @@ class TeamController extends Controller
     public function search(Request $request)
     {
         $teams = $this->service->search($request->user()->id, $request->search);
+
         return view('team.index')->with('teams', $teams);
     }
 
@@ -71,6 +72,7 @@ class TeamController extends Controller
      * Display the specified team.
      *
      * @param  int  $id
+     * @param mixed $name
      * @return \Illuminate\Http\Response
      */
     public function showByName($name)
@@ -93,6 +95,7 @@ class TeamController extends Controller
     public function edit($id)
     {
         $team = $this->service->find($id);
+
         return view('team.edit')->with('team', $team);
     }
 
@@ -152,6 +155,7 @@ class TeamController extends Controller
      * Remove a team member
      *
      * @param  int  $userId
+     * @param mixed $id
      * @return \Illuminate\Http\Response
      */
     public function removeMember($id, $userId)

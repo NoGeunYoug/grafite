@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use App\Models\User;
@@ -8,6 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     public $timestamps = false;
+
+    /**
+     * Rules
+     *
+     * @var array
+     */
+    public static $rules = [
+        'name'  => 'required|unique:roles',
+        'label' => 'required',
+    ];
 
     /**
      * The database table used by the model.
@@ -24,17 +33,7 @@ class Role extends Model
     protected $fillable = [
         'name',
         'label',
-        'permissions'
-    ];
-
-    /**
-     * Rules
-     *
-     * @var array
-     */
-    public static $rules = [
-        'name' => 'required|unique:roles',
-        'label' => 'required'
+        'permissions',
     ];
 
     /**

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services;
 
 use DB;
@@ -16,7 +15,7 @@ class RoleService
         Role $model,
         UserService $userService
     ) {
-        $this->model = $model;
+        $this->model       = $model;
         $this->userService = $userService;
     }
 
@@ -25,7 +24,6 @@ class RoleService
     | Getters
     |--------------------------------------------------------------------------
     */
-
 
     /**
      * All roles
@@ -55,7 +53,6 @@ class RoleService
         return $this->model->find($id);
     }
 
-
     /**
      * Search the roles
      * @param  string $input
@@ -69,7 +66,7 @@ class RoleService
 
         foreach ($columns as $attribute) {
             $query->orWhere($attribute, 'LIKE', '%'.$input.'%');
-        };
+        }
 
         return $query->paginate(env('PAGINATE', 25));
     }
@@ -106,9 +103,10 @@ class RoleService
             } else {
                 $input['permissions'] = null;
             }
+
             return $this->model->create($input);
         } catch (Exception $e) {
-            throw new Exception("Failed to create role", 1);
+            throw new Exception('Failed to create role', 1);
         }
     }
 
@@ -153,7 +151,7 @@ class RoleService
                 return $result;
             });
         } catch (Exception $e) {
-            throw new Exception("We were unable to delete this role", 1);
+            throw new Exception('We were unable to delete this role', 1);
         }
 
         return $result;

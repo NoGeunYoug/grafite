@@ -17,13 +17,12 @@ class UserTableSeeder extends Seeder
 
         if (!User::where('name', 'admin')->first()) {
             $user = User::create([
-                'name' => 'Admin',
-                'email' => 'admin@example.com',
+                'name'     => 'Admin',
+                'email'    => 'admin@example.com',
                 'password' => bcrypt('admin'),
             ]);
 
             $service->create($user, 'admin', 'admin', false);
         }
-
     }
 }

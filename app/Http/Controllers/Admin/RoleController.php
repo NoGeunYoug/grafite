@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests;
@@ -23,6 +22,7 @@ class RoleController extends Controller
     public function index()
     {
         $roles = $this->service->all();
+
         return view('admin.roles.index')->with('roles', $roles);
     }
 
@@ -38,6 +38,7 @@ class RoleController extends Controller
         }
 
         $roles = $this->service->search($request->search);
+
         return view('admin.roles.index')->with('roles', $roles);
     }
 
@@ -76,6 +77,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = $this->service->find($id);
+
         return view('admin.roles.edit')->with('role', $role);
     }
 
