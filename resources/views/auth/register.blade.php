@@ -1,32 +1,38 @@
-<!-- resources/views/auth/register.blade.php -->
+@extends('layouts.master')
 
-<form method="POST" action="/register">
-    {!! csrf_field() !!}
+@section('app-content')
 
-    @include('partials.errors')
-    @include('partials.status')
+        <div class="form-small">
 
-    <div>
-        Name
-        <input type="text" name="name" value="{{ old('name') }}">
+        <h2 class="text-center">Register</h2>
+
+        <form method="POST" action="/register">
+            {!! csrf_field() !!}
+
+            <div class="col-md-12 raw-margin-top-24">
+                <label>Name</label>
+                <input class="form-control" type="text" name="name" value="{{ old('name') }}" placeholder="Name">
+            </div>
+            <div class="col-md-12 raw-margin-top-24">
+                <label>Email</label>
+                <input class="form-control" type="email" name="email" value="{{ old('email') }}" placeholder="Email">
+            </div>
+            <div class="col-md-12 raw-margin-top-24">
+                <label>Password</label>
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <div class="col-md-12 raw-margin-top-24">
+                <label>Confirm Password</label>
+                <input class="form-control" type="password" name="password_confirmation" placeholder="Password Confirmation">
+            </div>
+            <div class="col-md-12 raw-margin-top-24">
+                <div class="btn-toolbar justify-content-between">
+                    <button class="btn btn-primary" type="submit">Register</button>
+                    <a class="btn btn-link" href="/login">Login</a>
+                </div>
+            </div>
+        </form>
+
     </div>
 
-    <div>
-        Email
-        <input type="email" name="email" value="{{ old('email') }}">
-    </div>
-
-    <div>
-        Password
-        <input type="password" name="password">
-    </div>
-
-    <div>
-        Confirm Password
-        <input type="password" name="password_confirmation">
-    </div>
-
-    <div>
-        <button type="submit">Register</button>
-    </div>
-</form>
+@stop

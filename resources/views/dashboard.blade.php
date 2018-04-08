@@ -1,15 +1,17 @@
-<h1>Dashboard!</h1>
+@extends('layouts.master')
 
-<a href="/user/settings">Settings</a><br>
-<a href="/teams">Teams</a><br>
-@if(Auth::user()->can('admin'))
-<h1>Admin</h1>
-<a href="/admin/dashboard">Dashboard</a><br>
-<a href="/admin/users">Users</a><br>
-<a href="/admin/roles">Roles</a><br>
-@endif
+@section('app-content')
 
-@if (Session::get('original_user'))
-<a class="btn btn-default pull-right btn-xs" href="/users/switch-back">Return to your Login</a>
-@endif
-<a href="/logout">Logout</a>
+    <nav id="sidebar" class="bg-light sidebar">
+        <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+                @include('dashboard.panel')
+            </ul>
+        </div>
+    </nav>
+
+    <main class="ml-sm-auto pt-3 px-4 main">
+        @yield('content')
+    </main>
+
+@stop

@@ -1,27 +1,39 @@
+@extends('layouts.master')
 
+@section('app-content')
 
-<form method="POST" action="/login">
-    {!! csrf_field() !!}
+    <div class="form-small">
 
-    <div>
-        Email
-        <input type="email" name="email" value="{{ old('email') }}">
+        <h2 class="text-center">Please sign in</h2>
+
+        <form method="POST" action="/login">
+            {!! csrf_field() !!}
+            <div class="col-md-12 raw-margin-top-24">
+                <label>Email</label>
+                <input class="form-control" type="email" name="email" placeholder="Email" value="{{ old('email') }}">
+            </div>
+            <div class="col-md-12 raw-margin-top-24">
+                <label>Password</label>
+                <input class="form-control" type="password" name="password" placeholder="Password" id="password">
+            </div>
+            <div class="col-md-12 raw-margin-top-24">
+                <label>
+                    Remember Me <input type="checkbox" name="remember">
+                </label>
+            </div>
+            <div class="col-md-12 raw-margin-top-24">
+                <div class="btn-toolbar justify-content-between">
+                    <button class="btn btn-primary" type="submit">Login</button>
+                    <a class="btn btn-link" href="/password/reset">Forgot Password</a>
+                </div>
+            </div>
+
+            <div class="col-md-12 raw-margin-top-24">
+                <a class="btn raw100 btn-info" href="/register">Register</a>
+            </div>
+        </form>
+
     </div>
 
-    <div>
-        Password
-        <input type="password" name="password" id="password">
-    </div>
+@stop
 
-    <div>
-        <input type="checkbox" name="remember"> Remember Me
-    </div>
-
-    <a href="/password/reset">Forgot Password</a>
-
-    <div>
-        <button type="submit">Login</button>
-    </div>
-
-    <a href="/register">Register</a>
-</form>

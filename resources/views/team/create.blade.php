@@ -1,15 +1,27 @@
-@include('partials.message')
+@extends('dashboard')
 
-<div class="container">
+@section('pageTitle') Teams: Create @stop
 
-    <form method="post" action="{{ route('teams.store') }}">
-        {!! csrf_field() !!}
+@section('content')
 
-        @form_maker_table("teams", ['name' => 'string'])
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <form method="post" action="{{ route('teams.store') }}">
+                        {!! csrf_field() !!}
 
-        <a href="{{ URL::previous() }}">Cancel</a>
-        <button type="submit">Create</button>
+                        @form_maker_table("teams", ['name' => 'string'])
 
-    </form>
+                        <div class="raw-margin-top-24">
+                            <a class="btn btn-secondary pull-left" href="{{ url('teams') }}">Cancel</a>
+                            <button class="btn btn-primary pull-right" type="submit">Create</button>
+                        </div>
 
-</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@stop

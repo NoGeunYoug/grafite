@@ -1,37 +1,41 @@
-@include('partials.errors')
+@extends('dashboard')
 
-@if (session('message'))
-    <div class="">
-        {{ session('message') }}
-    </div>
-@endif
+@section('pageTitle') Settings @stop
 
-<form method="POST" action="/user/settings">
-    {!! csrf_field() !!}
+@section('content')
 
-    <div>
-        @input_maker_label('Email')
-        @input_maker_create('email', ['type' => 'string'], $user)
-    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form method="POST" action="/user/settings">
+                {!! csrf_field() !!}
 
-    <div>
-        @input_maker_label('Name')
-        @input_maker_create('name', ['type' => 'string'], $user)
-    </div>
+                <div>
+                    @input_maker_label('Email')
+                    @input_maker_create('email', ['type' => 'string'], $user)
+                </div>
 
-    @include('user.meta')
+                <div class="raw-margin-top-24">
+                    @input_maker_label('Name')
+                    @input_maker_create('name', ['type' => 'string'], $user)
+                </div>
 
-    @if ($user->roles->first()->name === 'admin' || $user->id == 1)
-        <div>
-            @input_maker_label('Role')
-            @input_maker_create('roles', ['type' => 'relationship', 'model' => 'App\Models\Role', 'label' => 'label', 'value' => 'name'], $user)
+                @include('user.meta')
+
+                @if ($user->roles->first()->name === 'admin' || $user->id == 1)
+                    <div class="raw-margin-top-24">
+                        @input_maker_label('Role')
+                        @input_maker_create('roles', ['type' => 'relationship', 'model' => 'App\Models\Role', 'label' => 'label', 'value' => 'name'], $user)
+                    </div>
+                @endif
+
+                <div class="raw-margin-top-24">
+                    <div class="btn-toolbar justify-content-between">
+                        <button class="btn btn-primary" type="submit">Save</button>
+                        <a class="btn btn-link" href="/user/password">Change Password</a>
+                    </div>
+                </div>
+            </form>
         </div>
-    @endif
-
-    <div>
-        <button type="submit">Save</button>
     </div>
-</form>
 
-<a href="/user/password">Change Password</a><br>
-<a href="/dashboard">Dashboard</a>
+@stop
